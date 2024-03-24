@@ -1,0 +1,54 @@
+package com.sathya.springex;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EmployeeDaoImpl implements EmployeeDao{
+	@Autowired
+	private EmployeeMapper employeeMapper;
+	//@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+//	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//		this.jdbcTemplate=jdbcTemplate;
+//	}
+	
+	@Override
+	public int save(Employee emp) {
+		String sql="insert into employee values(?,?,?)";
+		return jdbcTemplate.update(sql,emp.getEid(),emp.getEid(),emp.getEsalary());
+	}
+
+	@Override
+	public String getEmployeeName(int eid) {
+		 String sql = "select ename from employee where eid = ?";
+		 String name = jdbcTemplate.queryForObject(sql,new Object[]{eid},String.class);
+		 return name;
+	}
+
+	@Override
+	public int updateEmpDetails(Employee emp) {
+		String sql="update employee set ename=?,esalary=? where eid=?";
+		return jdbcTemplate.update(sql,emp.getEname(),emp.getEsalary(),emp.getEid());
+	}
+
+	@Override
+	public int deleteDetails(int eid) {
+		String sql="delete from employee where eid=?";
+		return jdbcTemplate.update(sql,eid);
+	}
+
+	@Override
+	public List<Employee> findAll() {
+		String sql="select * from employee";
+		List<Employee> employees =jdbcTemplate.query(sql, new EmployeeMapper());
+		return employees;
+	}
+
+	
+
+}

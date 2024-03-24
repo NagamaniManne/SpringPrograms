@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        
+        <bean id="car" class="com.sathya.springex.Car">
+        	<property name="fuelType" value="Petrol"/>
+        	<property name="maxSpeed" value="100"/>
+        </bean>
+        
+        <bean id="bus" class="com.sathya.springex.Bus">
+        	<property name="busType" value="Volvo"/>
+        	<property name="maxSpeed" value="150"/>
+        </bean>
+        
+        <bean id="traveller" class="com.sathya.springex.Traveller">
+        	<property name="name" value="Rajesh"/>
+        	<property name="email" value="rajesh@gmail.com"/>
+        	<property name="mobile" value="9877765879"/>
+        	<property name="vehicle" ref="bus"/>
+        </bean>
+</beans>
